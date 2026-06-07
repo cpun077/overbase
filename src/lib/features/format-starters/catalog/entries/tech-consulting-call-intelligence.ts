@@ -10,13 +10,13 @@ import {
 } from "./helpers";
 
 export const formatStarter = {
-  slug: "call-intelligence",
+  slug: "tech-consulting-call-intelligence",
   defaultPresentation: {
     title: "Call intelligence",
     description: "Find opportunities to upsell from account management calls",
   },
   dataSourceIds: ["gong", "salesforce", "calendar"],
-  industryTags: ["consulting"],
+  industryTags: ["tech-consulting"],
   variables: [
     { id: "account_name", label: "Account name" },
     { id: "account_owner", label: "Account owner" },
@@ -258,6 +258,6 @@ export const formatStarter = {
     },
   ],
   showInGallery: true,
-  sortOrder: 14,
+  sortOrder: 24,
   status: "active",
 } satisfies FormatStarter;

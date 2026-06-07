@@ -3,16 +3,14 @@ import {
   formatText as text,
   formatVariable as variable,
 } from "$lib/features/format-starters/domain";
+import type { FormatStarter } from "../types";
 import {
-  defineFormatStarter,
   seededSpreadsheetAttachment,
   spreadsheetCell as cell,
-  spreadsheetVariable as sheetVariable,
 } from "./helpers";
 
-export const topOfMindFormatStarter = defineFormatStarter({
+export const formatStarter = {
   slug: "top-of-mind",
-  formatDefinitionSlug: "top-of-mind",
   defaultPresentation: {
     title: "Stay top of mind",
     description: "Find high value reasons to reach out to clients",
@@ -113,7 +111,6 @@ export const topOfMindFormatStarter = defineFormatStarter({
     {
       id: "kickoff-plan",
       label: "Kickoff plan",
-      variantSlug: "default",
       emailContent: {
         title: "Stay top of mind",
         to: ["Marketing manager"],
@@ -148,7 +145,6 @@ export const topOfMindFormatStarter = defineFormatStarter({
     {
       id: "migration-plan",
       label: "Migration plan",
-      variantSlug: "default",
       emailContent: {
         title: "Migration implementation plan",
         to: ["Implementation team"],
@@ -156,16 +152,16 @@ export const topOfMindFormatStarter = defineFormatStarter({
         attachment: seededSpreadsheetAttachment("Migration plan.xlsx", [
           [cell("Scope"), cell("Dependency"), cell("Owner"), cell("Target")],
           [
-            cell(sheetVariable("migration_scope")),
-            cell(sheetVariable("dependency")),
-            cell(sheetVariable("integration_owner")),
-            cell(sheetVariable("target_launch_date")),
+            cell(variable("migration_scope")),
+            cell(variable("dependency")),
+            cell(variable("integration_owner")),
+            cell(variable("target_launch_date")),
           ],
           [
             cell("Validation"),
             cell("Sample data review"),
-            cell(sheetVariable("workstream_owner")),
-            cell(sheetVariable("success_metric")),
+            cell(variable("workstream_owner")),
+            cell(variable("success_metric")),
           ],
         ]),
         body: [
@@ -194,7 +190,6 @@ export const topOfMindFormatStarter = defineFormatStarter({
     {
       id: "risk-controlled-plan",
       label: "Risk-controlled plan",
-      variantSlug: "default",
       emailContent: {
         title: "Implementation risk plan",
         to: ["Implementation leads"],
@@ -209,16 +204,16 @@ export const topOfMindFormatStarter = defineFormatStarter({
               cell("Review date"),
             ],
             [
-              cell(sheetVariable("dependency")),
-              cell(sheetVariable("risk_mitigation")),
-              cell(sheetVariable("workstream_owner")),
-              cell(sheetVariable("kickoff_date")),
+              cell(variable("dependency")),
+              cell(variable("risk_mitigation")),
+              cell(variable("workstream_owner")),
+              cell(variable("kickoff_date")),
             ],
             [
               cell("Launch readiness"),
-              cell(sheetVariable("success_metric")),
-              cell(sheetVariable("implementation_owner")),
-              cell(sheetVariable("target_launch_date")),
+              cell(variable("success_metric")),
+              cell(variable("implementation_owner")),
+              cell(variable("target_launch_date")),
             ],
           ],
         ),
@@ -247,6 +242,6 @@ export const topOfMindFormatStarter = defineFormatStarter({
     },
   ],
   showInGallery: true,
-  modeSortOrder: 30,
+  sortOrder: 30,
   status: "active",
-});
+} satisfies FormatStarter;

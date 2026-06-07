@@ -3,17 +3,12 @@ import type {
 	FormatStarterSelection,
 	FormatVariableDefinition
 } from '$lib/features/format-starters/domain';
-import type {
-	EmailFormatDataMode,
-	EmailFormatInlineTextContent
-} from '$domain/email-formats';
 import type { DataSourceId } from '$lib/features/format-starters/data-sources';
 import type { FormatStarterIndustryTagId } from './industry-tags';
 
 export type FormatStartingPoint = {
 	id: string;
 	label: string;
-	variantSlug: string;
 	emailContent: FormatEmailContent;
 };
 
@@ -27,10 +22,8 @@ export type FormatStarterPresentation = {
 	description: string;
 };
 
-type FormatStarterBase = {
+export type FormatStarterBase = {
 	slug: string;
-	formatDefinitionSlug: string;
-	mode: EmailFormatDataMode;
 	defaultPresentation: FormatStarterPresentation;
 	dataSourceIds: readonly DataSourceId[];
 	industryTags: readonly FormatStarterIndustryTagId[];
@@ -42,29 +35,15 @@ type FormatStarterBase = {
 	startingPoints: readonly FormatStartingPoint[];
 	startingPointSelection: FormatStarterSelection;
 	showInGallery: boolean;
-	modeSortOrder: number;
+	sortOrder: number;
 	status: 'active';
 };
 
-export type InternalDataFormatStarter = FormatStarterBase & {
-	mode: 'internal-data';
-};
-
-export type PublicDataFormatStarter = FormatStarterBase & {
-	mode: 'public-data';
-	ruleInfoCard: {
-		label: string;
-		content: EmailFormatInlineTextContent;
-	};
-};
-
-export type FormatStarter =
-	| InternalDataFormatStarter
-	| PublicDataFormatStarter;
+export type FormatStarter = FormatStarterBase;
 
 export type FormatStarterCardEntry = Pick<
 	FormatStarter,
-	'mode' | 'slug' | 'dataSourceIds' | 'industryTags' | 'sampleEmail'
+	'slug' | 'dataSourceIds' | 'industryTags' | 'sampleEmail'
 > &
 	FormatStarterPresentation;
 

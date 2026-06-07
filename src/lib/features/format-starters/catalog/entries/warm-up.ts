@@ -3,16 +3,14 @@ import {
   formatText as text,
   formatVariable as variable,
 } from "$lib/features/format-starters/domain";
+import type { FormatStarter } from "../types";
 import {
-  defineFormatStarter,
   seededSpreadsheetAttachment,
   spreadsheetCell as cell,
-  spreadsheetVariable as sheetVariable,
 } from "./helpers";
 
-export const warmUpFormatStarter = defineFormatStarter({
+export const formatStarter = {
   slug: "warm-up",
-  formatDefinitionSlug: "warm-up",
   defaultPresentation: {
     title: "Warm up accounts",
     description: "Help lawyers warm up specific accounts",
@@ -110,7 +108,6 @@ export const warmUpFormatStarter = defineFormatStarter({
     {
       id: "steady-progress",
       label: "Steady progress update",
-      variantSlug: "default",
       emailContent: {
         title: "Client update",
         to: ["Client team"],
@@ -124,13 +121,13 @@ export const warmUpFormatStarter = defineFormatStarter({
           ],
           [
             cell("Program summary"),
-            cell(sheetVariable("current_status")),
-            cell(sheetVariable("account_owner")),
-            cell(sheetVariable("next_meeting_date")),
+            cell(variable("current_status")),
+            cell(variable("account_owner")),
+            cell(variable("next_meeting_date")),
           ],
           [
             cell("Priority item"),
-            cell(sheetVariable("priority_update")),
+            cell(variable("priority_update")),
             cell("Overbase"),
             cell("This week"),
           ],
@@ -163,7 +160,6 @@ export const warmUpFormatStarter = defineFormatStarter({
     {
       id: "decision-request",
       label: "Decision request",
-      variantSlug: "default",
       emailContent: {
         title: "Decision needed",
         to: ["Client lead"],
@@ -171,16 +167,16 @@ export const warmUpFormatStarter = defineFormatStarter({
         attachment: seededSpreadsheetAttachment("Decision tracker.xlsx", [
           [cell("Decision"), cell("Owner"), cell("Due date"), cell("Impact")],
           [
-            cell(sheetVariable("decision_needed")),
+            cell(variable("decision_needed")),
             cell("Client team"),
-            cell(sheetVariable("decision_due_date")),
+            cell(variable("decision_due_date")),
             cell("Keeps the plan moving"),
           ],
           [
             cell("Supporting context"),
-            cell(sheetVariable("account_owner")),
+            cell(variable("account_owner")),
             cell("Prepared"),
-            cell(sheetVariable("priority_update")),
+            cell(variable("priority_update")),
           ],
         ]),
         body: [
@@ -209,7 +205,6 @@ export const warmUpFormatStarter = defineFormatStarter({
     {
       id: "risk-escalation",
       label: "Risk escalation",
-      variantSlug: "default",
       emailContent: {
         title: "Risk update",
         to: ["Client sponsor"],
@@ -217,16 +212,16 @@ export const warmUpFormatStarter = defineFormatStarter({
         attachment: seededSpreadsheetAttachment("Risk register.xlsx", [
           [cell("Risk"), cell("Owner"), cell("Status"), cell("Mitigation")],
           [
-            cell(sheetVariable("risk_summary")),
-            cell(sheetVariable("risk_owner")),
-            cell(sheetVariable("current_status")),
+            cell(variable("risk_summary")),
+            cell(variable("risk_owner")),
+            cell(variable("current_status")),
             cell("Review and unblock"),
           ],
           [
             cell("Next review"),
-            cell(sheetVariable("account_owner")),
-            cell(sheetVariable("next_meeting_date")),
-            cell(sheetVariable("priority_update")),
+            cell(variable("account_owner")),
+            cell(variable("next_meeting_date")),
+            cell(variable("priority_update")),
           ],
         ]),
         body: [
@@ -254,6 +249,6 @@ export const warmUpFormatStarter = defineFormatStarter({
     },
   ],
   showInGallery: true,
-  modeSortOrder: 10,
+  sortOrder: 10,
   status: "active",
-});
+} satisfies FormatStarter;
